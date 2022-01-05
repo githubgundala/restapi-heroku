@@ -1,0 +1,22 @@
+name: Deploy To Hosting
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  server-sync:
+      name: 🎉 Sync & Deploy Server
+      runs-on: ubuntu-latest
+      steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        with:
+          server: ftp.partnerinaja.com
+          username: ${{ secrets.SECRET_USERNAME }}
+          password: ${{ secrets.SECRET_PASSWORD }}
+          server-dir: ./
+          port: 21
