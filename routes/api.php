@@ -15,15 +15,15 @@ use App\Http\Controllers\API\Auth\AuthController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('users', [UserAPIController::class, 'store']);
+Route::post('register', [UserAPIController::class, 'store']);
 Route::post('login', [AuthController::class, 'login']);
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    // Route::resource('users', App\Http\Controllers\API\UserAPIController::class);
+    Route::resource('users', App\Http\Controllers\API\UserAPIController::class);
 });
 
 
