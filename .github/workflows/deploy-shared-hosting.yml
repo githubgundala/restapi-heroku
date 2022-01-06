@@ -6,7 +6,7 @@ on:
 
 jobs:
   server-sync:
-      name: 🎉 Sync & Deploy Server
+      name:  Sync & Deploy Share Hosting
       runs-on: ubuntu-latest
       steps:
       - name: 🚚 Get latest code
@@ -19,4 +19,22 @@ jobs:
           username: ${{ secrets.SECRET_USERNAME }}
           password: ${{ secrets.SECRET_PASSWORD }}
           server-dir: ./
-          port: 21
+          port: 21🎉
+
+      steps:
+      - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+        with:
+          php-version: '7.4'
+      - uses: actions/checkout@v2
+      - name: 🕒 Update Dependencies
+        run: composer update
+      - name: 📂 Migrate Database
+        run: |
+          php artisan migrate
+          yes
+      - name: 🎉 Optimize
+        run: |
+          php artisan optimize
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
