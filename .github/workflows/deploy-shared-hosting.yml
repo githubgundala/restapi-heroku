@@ -20,7 +20,7 @@ jobs:
           password: ${{ secrets.SECRET_PASSWORD }}
           server-dir: ./
           port: 21🎉
-          
+
       - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
         with:
           php-version: '7.4'
@@ -29,8 +29,7 @@ jobs:
         run: composer update
       - name: 📂 Migrate Database
         run: |
-          php artisan migrate
-          yes
+          php artisan migrate --force
       - name: 🎉 Optimize
         run: |
           php artisan optimize
